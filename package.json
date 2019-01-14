@@ -1,0 +1,29 @@
+{
+  "name": "epitech_area",
+  "version": "1.0.0",
+  "description": "Epitech project AREA",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/K0rolev/Epitech_AREA.git"
+  },
+  "keywords": [
+    "server",
+    "api",
+    "rest",
+    "area",
+    "epitech"
+  ],
+  "author": "Clemencet Nicolas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/K0rolev/Epitech_AREA/issues"
+  },
+  "homepage": "https://github.com/K0rolev/Epitech_AREA#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
