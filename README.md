@@ -3,26 +3,29 @@ Epitech project Area
 
 ##Server
 
---> /backend/npm start
+--> /backend-test/npm start
 
 ##DB
 
-Creer une DB "AREA"
+Creer une DB "area" ou changer le nom dans mongoose.js
 
 
 
 REGISTER
 
-POST http://localhost:4000/users/register 
-body : username
-       password
-       email
-       
-POST http://localhost:4000/users/authenticate 
-body : username
-       password
+POST '/api/users/sign/github'
+params(url)   access_token *NUMERO DU TOKEN ICI*
 
-GET http://localhost:4000/users/
-Authorization : token
+POST '/api/users/sign/google'
+params(url)   access_token *NUMERO DU TOKEN ICI*
+
+POST '/api/users/sign/facebook'
+params(url)   access_token *NUMERO DU TOKEN ICI*
+
+POST '/api/users/sign/local'
+params(url)   username *blabla*
+              password *blabla*
+              email    *blabla*
+
 
 ..work in progress..
