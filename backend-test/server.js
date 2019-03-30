@@ -16,10 +16,13 @@ mongoose();
 var User = require('mongoose').model('User');
 var passportConfig = require('./passport');
 
+
 //setup configuration for facebook login
 passportConfig();
 
 var app = express();
+app.use(passport.initialize());
+app.use(passport.session());
 
 // enable cors
 var corsOption = {
@@ -61,16 +64,15 @@ var sendToken = function (req, res) {
 };
 
 app.post(
-  "/login",
+  "/api/users/sign/facebook",
    (req, res) => {
         passport.authenticate('facebook-token',{ scope : ['email'] }, function (err, user, info) {
-          console.log('I\'m in\n');
               if(err){
-                console.log("HAHA\n");
                   if(err.oauthError){
                       var oauthError = JSON.parse(err.oauthError.data);
                       res.send(oauthError.error.message);
                   } else {
+                    console.log("User successfully registered as Facebook Account !");
                       res.send(err);
                   }
               } else {
@@ -80,13 +82,10 @@ app.post(
       });
 
       app.post(
-        "/login/github",
+        "/api/users/sign/github",
          (req, res) => {
               passport.authenticate('github-token', function (err, user, info) {
-                console.log('I\'m in\n REALLY ???');
-                console.log(info);
                     if(err){
-                      console.log("HAHA\n");
                         if(err.oauthError){
                             var oauthError = JSON.parse(err.oauthError.data);
                             res.send(oauthError.error.message);
@@ -94,17 +93,43 @@ app.post(
                             res.send(err);
                         }
                     } else {
+                        console.log("User successfully registered as Github Account !");
                         res.send(user);
                     }
               })(req, res);
             });
-            app.get('/auth/google/token', passport.authenticate('google-token'),
- function(req, res) {
-  console.log("GOOGLE AUTH");
-  res.send(req.user);
-});
-            app.get('/auth/discord', passport.authenticate('discord'));
-
+            app.post(
+              "/api/users/sign/google",
+               (req, res) => {
+                    passport.authenticate('google-token', function (err, user, info) {
+                          if(err){
+                              if(err.oauthError){
+                                  var oauthError = JSON.parse(err.oauthError.data);
+                                  res.send(oauthError.error.message);
+                              } else {
+                                  res.send(err);
+                              }
+                          } else {
+                            console.log("User successfully registered as Google Account !");
+                              res.send(user);
+                          }
+                    })(req, res);
+                  });
+                  app.post('/api/users/sign/local', (req, res) => {
+                    passport.authenticate('local', function (err, user, info) {
+                          if(err){
+                              if(err.oauthError){
+                                  var oauthError = JSON.parse(err.oauthError.data);
+                                  res.send(oauthError.error.message);
+                              } else {
+                                  res.send(err);
+                              }
+                          } else {
+                            console.log("User successfully registered as Local Account !");
+                            res.send(user);
+                          }
+                    })(req, res);
+                  });
 router.route('/auth/facebook/')
   .post(passport.authenticate('facebook-token', {session: false}), function(req, res, next) {
     console.log(req);

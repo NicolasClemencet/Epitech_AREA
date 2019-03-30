@@ -2,6 +2,7 @@
 var DiscordStrategy = require('passport-discord').Strategy;
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
 var GitHubTokenStrategy = require('passport-github-token');
+const LocalStrategy = require('passport-local').Strategy;
 var passport = require('passport'),
   FacebookTokenStrategy = require('passport-facebook-token'),
   User = require('mongoose').model('User');
@@ -10,7 +11,26 @@ var passport = require('passport'),
 
 module.exports = function () {
 
-  console.log("HAHA\n");
+  passport.use(new LocalStrategy({
+    usernameField: 'username',
+    passwordField: 'password',
+    passReqToCallback: true
+  },
+    function(req, username, password, done) {
+        var profile = {
+          username : String,
+          password : String,
+          email: String
+        };
+        profile.username = username;
+        profile.email = req.query.email;
+        profile.password = password;
+        User.upsertLocalUser(profile, function(err, user) {
+          return done(err, user);
+        });
+    }
+  ));
+
   passport.use(new FacebookTokenStrategy({
       clientID: '1888863094562536',
       clientSecret: '9714ea834e25cac043a2704340e8128f',
@@ -19,9 +39,6 @@ module.exports = function () {
       profileFields: ['id', 'emails', 'name']
     },
     function (accessToken, refreshToken, profile, done) {
-      console.log("HELLO " + refreshToken + " HELLO" + accessToken);
-      console.log("HAHA\n");
-      console.log(profile);
       User.upsertFbUser(accessToken, refreshToken, profile, function(err, user) {
         return done(err, user);
       });
@@ -33,7 +50,6 @@ passport.use(new GoogleTokenStrategy({
   clientSecret: "T-xSH3scVFKp2vxSVHECffFv"
 },
 function(accessToken, refreshToken, profile, done) {
-  console.log(profile);
   User.upsertGoogleUser(accessToken, refreshToken, profile, function(err, user) {
     return done(err, user);
   });
@@ -45,24 +61,9 @@ passport.use(new GitHubTokenStrategy({
   clientID: "2ff0395ead9ef73fe85d",
   clientSecret: "d1e79e1f8bfa8bdd1a7f80de606740acff3b5570",
   passReqToCallback: true
-}, function(req, accessToken, refreshToken, profile, next) {
-    console.log(profile);
-  /*User.findOrCreate({'github.id': profile.id}, function(error, user) {
-      return next(error, user);
-  });*/
+}, function(req, accessToken, refreshToken, profile, done) {
+    User.upsertGithubUser(accessToken, refreshToken, profile, function(err, user) {
+      return done(err, user);
+    });
 }));
-
-    passport.use(new DiscordStrategy(
-      {
-          clientID: '559321347331719169',
-          clientSecret: 'bhs98r4ke2PvlrV5R9-vZQaaYtZ2rX5X',
-          callbackURL: 'http://www.publicdomain.com/callback/'
-      },
-      function(accessToken, refreshToken, profile, cb) {
-        console.log(profile);
-          /*User.findOrCreate({ discordId: profile.id }, function(err, user) {
-              return cb(err, user);
-          });*/
-      }
-  ));
 };

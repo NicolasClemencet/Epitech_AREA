@@ -15,6 +15,7 @@
     "gulp-nodemon": "^2.2.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.1",
     "cors": "^2.8.1",
     "express": "^4.15.2",
@@ -29,6 +30,7 @@
     "passport-github-token": "^2.1.0",
     "passport-google-id-token": "^0.4.6",
     "passport-google-token": "^0.1.2",
+    "passport-local": "^1.0.0",
     "passport-token-google": "^0.1.2",
     "request": "^2.88.0"
   }
