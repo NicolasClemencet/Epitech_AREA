@@ -110,8 +110,15 @@ app.post(
                                   res.send(err);
                               }
                           } else {
-                            console.log("User successfully registered as Google Account !");
-                              res.send(user);
+                            if (user == false) {
+                              console.log("Bad token");
+                              var infos = "Bad Token";
+                              res.send(infos);
+                            } else {
+                              console.log("User successfully registered as Google Account !");
+                              const token = jwt.sign(user, 'area');
+                              res.send({user, token});
+                            }
                           }
                     })(req, res);
                   });
@@ -125,7 +132,23 @@ app.post(
                                   res.send(err);
                               }
                           } else {
-                            console.log("User successfully registered as Local Account !");
+                            console.log(user.username +" successfully registered as Local Account !");
+                            const token = jwt.sign(user, 'area');
+                            const infos = "Logged in";
+                            res.send({infos, token});
+                          }
+                    })(req, res);
+                  });
+                  app.post('/login/token', (req, res) => {
+                    passport.authenticate('jwt', function (err, user, info) {
+                          if(err){
+                              if(err.oauthError){
+                                  var oauthError = JSON.parse(err.oauthError.data);
+                                  res.send(oauthError.error.message);
+                              } else {
+                                  res.send(err);
+                              }
+                          } else {
                             res.send(user);
                           }
                     })(req, res);

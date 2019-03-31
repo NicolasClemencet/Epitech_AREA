@@ -13,7 +13,7 @@ module.exports = function () {
     firstName: {type: String},
     lastName: {type: String},
     username: {type: String, required: true, unique: true},
-    hash: { type: String, required: false },
+    password: { type: String, required: false },
     email: {
       type: String,
       trim: true,
@@ -146,11 +146,10 @@ module.exports = function () {
       'username': profile.username
     }, function(err, user) {
       // no user was found, lets create a new one
-      console.log(user);
       if (!user) {
         var newUser = new that({
           username: profile.username,
-          password: profile.password,
+          password: bcrypt.hashSync(profile.password, 10),
           email: profile.email
         });
         newUser.save(function(error, savedUser) {
@@ -161,8 +160,8 @@ module.exports = function () {
           return cb(error, savedUser);
         });
       } else {
-        if (user.password == profile.password)
-          console.log("Success");
+        if (bcrypt.compareSync(profile.password, user.password))
+          console.log("User successfully identified");
         return cb(err, user);
       }
     });

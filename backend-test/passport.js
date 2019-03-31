@@ -3,6 +3,10 @@ var DiscordStrategy = require('passport-discord').Strategy;
 var GoogleTokenStrategy = require('passport-google-token').Strategy;
 var GitHubTokenStrategy = require('passport-github-token');
 const LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcryptjs');
+const passportJWT = require("passport-jwt");
+const JWTStrategy   = passportJWT.Strategy;
+const ExtractJWT = passportJWT.ExtractJwt;
 var passport = require('passport'),
   FacebookTokenStrategy = require('passport-facebook-token'),
   User = require('mongoose').model('User');
@@ -13,7 +17,7 @@ module.exports = function () {
 
   passport.use(new LocalStrategy({
     usernameField: 'username',
-    passwordField: 'password',
+    passwordField: 'passwd',
     passReqToCallback: true
   },
     function(req, username, password, done) {
@@ -22,14 +26,35 @@ module.exports = function () {
           password : String,
           email: String
         };
+        
         profile.username = username;
         profile.email = req.query.email;
         profile.password = password;
+        console.log(profile.password);
         User.upsertLocalUser(profile, function(err, user) {
           return done(err, user);
         });
     }
   ));
+
+  passport.use(new JWTStrategy({
+    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+    secretOrKey   : 'area'
+},
+function (jwtPayload, cb) {
+
+    return User.findOne({
+      'username': jwtPayload._doc.username
+    })
+    .then(user => {
+      return cb(null, user);
+  })
+  .catch(err => {
+      return cb(err);
+  });
+    
+}
+));
 
   passport.use(new FacebookTokenStrategy({
       clientID: '1888863094562536',
