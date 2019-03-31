@@ -162,6 +162,7 @@ module.exports = function () {
       } else {
         if (bcrypt.compareSync(profile.password, user.password))
           console.log("User successfully identified");
+        err = "Bad password";
         return cb(err, user);
       }
     });

@@ -139,7 +139,7 @@ app.post(
                           }
                     })(req, res);
                   });
-                  app.post('/login/token', (req, res) => {
+                  app.post('/api/users/login/token', (req, res) => {
                     passport.authenticate('jwt', function (err, user, info) {
                           if(err){
                               if(err.oauthError){
