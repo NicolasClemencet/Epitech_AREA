@@ -1,0 +1,44 @@
+.dash-widgets {
+	background-color: rgba(0, 106, 179, 0.7);
+	padding: 20px;
+}
+
+.dash-widgets p {
+	display: inline-block;
+	font-size: 30px;
+}
+
+.widget-title {
+	width: 80%;
+	text-align: left;
+	padding-left: 50px;
+}
+
+.toggle {
+	text-align: right;
+	width: 10%;
+}
+
+.show-widgets {
+	/* display: none; */
+	display: inline-block;
+	width: 25%;
+	margin: 20px 0px 20px 20px;
+	padding: 20px;
+	background-color: rgba(0, 106, 179, 0.7);
+}
+
+.del-widget {
+	display: inline-block;
+	width: 5%;
+}
+
+.widgets-list {
+	display: inline-block;
+	width: 85%;
+}
+
+.manage-widget {
+	display: inline-block;
+    text-align: left;
+}

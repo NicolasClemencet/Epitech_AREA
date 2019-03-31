@@ -1,0 +1,57 @@
+body {
+	background-image: url("../assets/bg/background.jpg");
+    	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	padding-top: 10pc;
+}
+
+.area-background {
+	width: 25%;
+	height: 25%;
+	background-color: rgba(0, 106, 179, 0.7);
+	margin: auto;
+	margin-bottom: 10pc;
+	padding: 0px 30px 20px;
+	border: solid 20px rgba(0,0,0,0);
+	border-radius: 30px;
+	color: white;
+}
+
+.area-login-module {
+	text-align: center;
+	margin: auto;
+}
+
+.area-login-module h2 {
+	text-align: left;
+}
+
+.area-form-input {
+	width: 80%;
+	background-color: rgba(1, 162, 255, 0.9);
+	padding: 10pt;
+	border: 5px solid rgba(0, 0, 0, 0);
+	border-radius: 30px;
+	margin: 10pt;
+}
+
+input::placeholder {
+	font-family: 'Eurostile';
+	font-size: 20px;
+	color: white;
+}
+
+.submit-button {
+	border: none;
+	width: 30%;
+	background-color: rgb(115, 250, 121);
+	padding: 10pt;
+	margin: 10pt;
+	border: 5px solid rgba(0, 0, 0, 0);
+	border-radius: 30px;
+	color: white;
+	font-family: Eurostile;
+	font-style: bold;
+	font-size: 20px;
+}

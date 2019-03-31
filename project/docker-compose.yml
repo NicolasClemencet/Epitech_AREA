@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  server:
+    build: ./
+    ports:
+      - "8080:8080"
+    command: npm start
+    links:
+      - mongodb:mongodb
+    environment:
+      PORT: 8080
+  mongodb:
+    image: mongo:latest
+    command: mongod --port 27017 --bind_ip_all
+    ports:
+      - "27017:27017"
+
+  # client_web:
+  #   build: ./
+  #   ports:
+  #     - "8081:8081"
+  #   links:
+  #     - server:server
+  #   environment:
+  #     PORT: 8081
+
+
+
+
+# volumes:
+#   my-datavolume:

@@ -1,0 +1,18 @@
+.dash-header {
+	width: auto;
+	background-color: rgba(0, 106, 179, 0.9);
+	padding: 10px 20px;
+	margin: none;
+}
+
+.dash-title {
+	width: 80%;
+    display: inline-block;
+}
+
+.dash-logout {
+	width: 10%;
+    padding: 20px;
+	text-align: right;
+    display: inline-block;
+}
