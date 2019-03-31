@@ -28,4 +28,22 @@ params(url)   username *blabla*
               email    *blabla*
 
 
+LOGIN 
+POST '/api/users/sign/github'
+params(url)   access_token *NUMERO DU TOKEN ICI*
+
+POST '/api/users/sign/google'
+params(url)   access_token *NUMERO DU TOKEN ICI*
+
+POST '/api/users/sign/facebook'
+params(url)   access_token *NUMERO DU TOKEN ICI*
+
+POST '/api/users/sign/local'
+params(url)   username *blabla*
+              password *blabla*
+
+LOGIN VIA TOKEN (du serveur)
+POST '/api/users/login/token'
+Header        Authorization  Bearer *token*
+
 ..work in progress..
