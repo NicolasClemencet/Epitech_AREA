@@ -29,16 +29,16 @@ params(url)   username *blabla*
 
 
 LOGIN 
-POST '/api/users/login/github'
+POST '/api/users/sign/github'
 params(url)   access_token *NUMERO DU TOKEN ICI*
 
-POST '/api/users/login/google'
+POST '/api/users/sign/google'
 params(url)   access_token *NUMERO DU TOKEN ICI*
 
-POST '/api/users/login/facebook'
+POST '/api/users/sign/facebook'
 params(url)   access_token *NUMERO DU TOKEN ICI*
 
-POST '/api/users/login/local'
+POST '/api/users/sign/local'
 params(url)   username *blabla*
               password *blabla*
 
