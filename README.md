@@ -46,4 +46,6 @@ LOGIN VIA TOKEN (du serveur)
 POST '/api/users/login/token'
 Header        Authorization  Bearer *token*
 
-..work in progress..
+
+Postman collection 
+AREA.postman_collection.json
